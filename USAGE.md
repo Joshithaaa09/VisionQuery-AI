@@ -1,184 +1,227 @@
-# 🎬 Video RAG Usage Guide
+# VisionQuery AI — Usage Guide
 
-This guide will help you get started with the Video RAG demo using Google's Gemini API.
+VisionQuery AI lets you upload a video and interact with it using natural-language questions powered by Google Gemini.
 
-## Quick Start
+## 1. Requirements
 
-### 1. Setup Environment
+Make sure you have:
 
-```bash
-# Clone or navigate to the video-rag-gemini directory
-cd video-rag-gemini
+- Python 3.9 or newer
+- A Google Gemini API key
+- An internet connection
 
-# Install dependencies
-pip install -r requirements.txt
+## 2. Install the dependencies
 
-# Test your setup
-python test_setup.py
-```
+Open PowerShell inside the project folder:
 
-### 2. Get Gemini API Key
+    cd C:\Users\DELL\OneDrive\Desktop\VisionQuery-AI
 
-1. Visit [Google AI Studio](https://aistudio.google.com/app/apikey)
-2. Sign in with your Google account
-3. Click "Create API Key"
-4. Copy your API key
+Create and activate the virtual environment:
 
-### 3. Configure API Key
+    python -m venv .venv
+    .\.venv\Scripts\Activate.ps1
 
-**Option A: Environment Variable (Recommended)**
-```bash
-# Create .env file
-cp .env.example .env
+Install the required packages:
 
-# Edit .env file and add your API key
-GEMINI_API_KEY=your_actual_api_key_here
-```
+    pip install -r requirements.txt
 
-**Option B: Enter in App**
-- You can also enter the API key directly in the Streamlit sidebar
+## 3. Configure the Gemini API key
 
-### 4. Run the Application
+Create a file named:
 
-```bash
-streamlit run app.py
-```
+    .env
 
-The app will open in your browser at `http://localhost:8501`
+Add:
 
-## Using the App
+    GEMINI_API_KEY=your_api_key_here
 
-### Step 1: Enter API Key
-- If you haven't set up the environment variable, enter your Gemini API key in the sidebar
-- The key is masked for security
+Do not upload your `.env` file to GitHub.
 
-### Step 2: Upload Video
-- Click "Choose a video file" in the sidebar
-- Supported formats: MP4, AVI, MOV, MKV, WEBM
-- File size limit: ~100MB (larger files may fail)
-- Wait for the video to be processed (this can take several minutes)
+The project already includes `.gitignore` rules to keep sensitive environment files out of the repository.
 
-### Step 3: Start Chatting
-- Once processing is complete, you'll see example questions
-- Click on example questions or type your own
-- Ask anything about the video content!
+## 4. Test the Gemini setup
 
-## Example Questions
+Run:
 
-### General Analysis
-- "What is happening in this video?"
-- "Summarize the main events"
-- "Describe the overall scene"
+    python test_setup.py
 
-### People & Objects
-- "Who are the people in this video?"
-- "What objects can you see?"
-- "Describe the clothing or appearance of people"
+A successful setup should show that the API key was found and that the Gemini API connection was successful.
 
-### Actions & Events
-- "What actions are taking place?"
-- "What is the sequence of events?"
-- "What happens at the beginning/middle/end?"
+## 5. Run VisionQuery AI
 
-### Environment & Setting
-- "What is the setting or location?"
-- "Describe the environment"
-- "What time of day is it?"
+Start the Streamlit application:
 
-### Specific Details
-- "What colors are prominent in the video?"
-- "What sounds might be present?" (Note: Gemini analyzes visual content)
-- "What emotions are expressed?"
+    streamlit run app.py
 
-## Tips for Best Results
+Streamlit will provide a local URL, usually:
 
-### Video Quality
-- Use clear, well-lit videos
-- Avoid very shaky or blurry footage
-- Higher resolution generally works better
+    http://localhost:8501
 
-### Question Types
-- Be specific in your questions
-- Ask about visual elements (Gemini can't hear audio)
-- Break complex questions into simpler parts
+Open the URL in your browser.
 
-### File Management
-- Keep video files under 100MB when possible
-- Use common formats (MP4 is most reliable)
-- Compress large files if needed
+## 6. Using the application
 
-## Troubleshooting
+### Step 1 — Upload a video
 
-### Common Issues
+Use the upload section in the sidebar.
 
-**"Error uploading video"**
-- Check file format and size
-- Ensure stable internet connection
-- Try a different video file
+Supported formats include:
 
-**"Video processing failed"**
-- File may be too large or corrupted
-- Try compressing the video
-- Check if format is supported
+- MP4
+- AVI
+- MOV
+- MKV
+- WEBM
 
-**"Error generating response"**
-- API key may be invalid or expired
-- Check your API quota/billing
-- Try a simpler question first
+### Step 2 — Wait for processing
 
-**App is slow or unresponsive**
-- Large videos take time to process
-- Wait a few minutes before trying again
-- Refresh the page if needed
+After uploading the video, VisionQuery AI sends the video to Gemini for processing.
 
-### Getting Help
+Processing time depends on the video size and length.
 
-1. **Check Setup**: Run `python test_setup.py`
-2. **Verify API Key**: Make sure it's correct and has quota
-3. **Test with Small Video**: Try a short, small video first
-4. **Check Logs**: Look at the Streamlit terminal for error messages
+### Step 3 — Ask questions
 
-## Advanced Usage
+Once the video is processed, type questions about its content.
 
-### Command Line Demo
-```bash
-# Run the command-line demo
-python demo.py
-```
+Example questions:
 
-### Environment Variables
-```bash
-# Set API key for session
-export GEMINI_API_KEY=your_key_here
+- What happens in this video?
+- Summarize the main events.
+- What objects are visible?
+- What actions are taking place?
+- Describe the scene.
+- What happens at the beginning?
+- What happens near the end?
+- How does the scene change throughout the video?
 
-# Run app
-streamlit run app.py
-```
+The application generates answers based on the uploaded video.
 
-### Custom Configuration
-You can modify `app.py` to:
-- Change the Gemini model (e.g., gemini-1.5-flash for faster responses)
-- Adjust file size limits
-- Customize the UI theme
-- Add additional video formats
+## 7. Demo script
 
-## API Limits & Costs
+The project also includes `demo.py`, which provides a simple command-line way to test video analysis.
 
-- **Free Tier**: Limited requests per minute/day
-- **File Size**: ~100MB per file
-- **Processing Time**: Varies by video length and complexity
-- **Rate Limits**: May need to wait between requests
+Run:
 
-Check [Gemini API pricing](https://ai.google.dev/pricing) for current limits and costs.
+    python demo.py
 
-## Security Notes
+Enter the path to your video when prompted and then enter your question.
 
-- Never share your API key publicly
-- Use environment variables for production
-- The app doesn't store videos permanently
-- Videos are uploaded to Google's servers for processing
+## 8. Project workflow
 
----
+The application follows this general pipeline:
 
-*Happy video chatting! 🎬✨*
+    Video Upload
+         ↓
+    Gemini File Upload
+         ↓
+    Video Processing
+         ↓
+    Gemini Multimodal Model
+         ↓
+    User Question
+         ↓
+    AI Generated Answer
 
+## 9. Important notes
+
+### API key security
+
+Never share your Gemini API key publicly.
+
+Do not commit:
+
+    .env
+
+to GitHub.
+
+If an API key is accidentally exposed, revoke it and create a new one.
+
+### Video processing
+
+Uploaded videos are processed using Google's Gemini API.
+
+Processing time can vary depending on video size and other API conditions.
+
+### Internet connection
+
+VisionQuery AI requires an internet connection because video processing and AI inference use the Gemini API.
+
+## 10. Troubleshooting
+
+### API key not found
+
+If you see:
+
+    GEMINI_API_KEY not found
+
+check that:
+
+- `.env` exists in the project directory.
+- The variable is named exactly `GEMINI_API_KEY`.
+- The API key is valid.
+
+### Gemini API connection failed
+
+Check:
+
+- Your internet connection.
+- Your Gemini API key.
+- Your Google AI API access.
+- Whether the API request has reached its usage limits.
+
+### Streamlit does not start
+
+Make sure the virtual environment is activated and dependencies are installed:
+
+    .\.venv\Scripts\Activate.ps1
+    pip install -r requirements.txt
+
+Then run:
+
+    streamlit run app.py
+
+## 11. Live Demo
+
+The deployed Streamlit application can be accessed from the project's GitHub README.
+
+## 12. Technology Stack
+
+- Python
+- Streamlit
+- Google Gemini
+- Google GenAI Python SDK
+- python-dotenv
+
+## 13. Project Structure
+
+    VisionQuery-AI/
+    │
+    ├── app.py
+    ├── demo.py
+    ├── test_setup.py
+    ├── requirements.txt
+    ├── env.example
+    ├── USAGE.md
+    ├── README.md
+    └── .gitignore
+
+## 14. Limitations
+
+VisionQuery AI depends on the capabilities, availability, rate limits, and supported video-processing features of the Gemini API.
+
+Large videos may require additional processing time.
+
+The quality of generated answers depends on the video content and the question asked.
+
+## 15. Future Improvements
+
+Potential improvements include:
+
+- Timestamp-based answers
+- More detailed video summaries
+- Multi-video analysis
+- Conversation history
+- Improved error handling
+- Video chapter generation
+- Automatic scene detection
+- Support for additional multimodal models
