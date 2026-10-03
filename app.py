@@ -258,8 +258,13 @@ else:
                     st.session_state.messages.append({"role": "user", "content": example})
                     st.rerun()
     
-    # Chat input
-    if prompt := st.chat_input("Ask a question about your video..."):
+        # Chat input
+    if "pending_prompt" in st.session_state:
+        prompt = st.session_state.pop("pending_prompt")
+    else:
+        prompt = st.chat_input("Ask a question about your video...")
+
+    if prompt:
         # Add user message to chat history
         st.session_state.messages.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
@@ -276,18 +281,18 @@ else:
                 )
             
             if response:
-                # Simulate streaming effect
                 full_response = ""
                 for chunk in response.split():
                     full_response += chunk + " "
                     message_placeholder.markdown(full_response + "▌")
                     time.sleep(0.05)
                 
-                # Final response without cursor
                 message_placeholder.markdown(response)
                 
-                # Add assistant response to chat history
-                st.session_state.messages.append({"role": "assistant", "content": response})
+                st.session_state.messages.append({
+                    "role": "assistant",
+                    "content": response
+                })
             else:
                 st.error("Failed to generate response. Please try again.")
 
