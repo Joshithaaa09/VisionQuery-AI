@@ -2,6 +2,10 @@
 
 An AI-powered video understanding application that lets users upload videos and ask natural-language questions about their content using Google's Gemini multimodal AI.
 
+## Live Demo
+
+🚀 **Try VisionQuery AI:** https://visionquery-ai-6tykvdqbccbagmdoquki3g.streamlit.app/
+
 ## Features
 
 - 📹 **Video Upload**: Support for multiple video formats (MP4, AVI, MOV, MKV, WEBM)
